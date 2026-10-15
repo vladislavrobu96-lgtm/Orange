@@ -1,0 +1,19 @@
+{
+  "name": "Transport Messages",
+  "short_name": "Messages",
+  "description": "Transport Messages — приложение для переписок и управления сообщениями",
+  "start_url": "./index.html",
+  "scope": "./",
+  "display": "standalone",
+  "orientation": "portrait",
+  "background_color": "#ffffff",
+  "theme_color": "#f5f5f7",
+  "icons": [
+    {
+      "src": "icon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    }
+  ]
+}
