@@ -155,6 +155,9 @@
   $('#messageInput').addEventListener('input',resizeComposer);
   $('#messageInput').addEventListener('focus',()=>setTimeout(()=>{const box=$('#messages');box.scrollTop=box.scrollHeight;},180));
   function fitViewport(){if(window.visualViewport){document.documentElement.style.setProperty('--viewport-height',window.visualViewport.height+'px');}const probe=document.createElement('div');probe.style.paddingTop='env(safe-area-inset-top)';document.body.append(probe);document.body.classList.toggle('has-native-safe-area',parseFloat(getComputedStyle(probe).paddingTop)>0);probe.remove();}
+  function syncOverlayInsets(){const panel=$('.main-panel');panel.style.setProperty('--composer-height',$('.composer-wrap').offsetHeight+'px');panel.style.setProperty('--chat-header-height',$('.chat-header').offsetHeight+'px');}
+  if('ResizeObserver' in window){const overlayObserver=new ResizeObserver(syncOverlayInsets);overlayObserver.observe($('.composer-wrap'));overlayObserver.observe($('.chat-header'));}else{window.addEventListener('resize',syncOverlayInsets);}
+  syncOverlayInsets();
   window.visualViewport?.addEventListener('resize',fitViewport);window.addEventListener('resize',fitViewport);fitViewport();
   document.addEventListener('keydown',e=>{if(e.key==='Escape')closeModal();});
   $('#messageForm').addEventListener('submit',e=>{e.preventDefault();const input=$('#messageInput');const text=input.value;input.value='';resizeComposer();handleSend(text);});
@@ -234,4 +237,5 @@
   window.addEventListener('storage',e=>{if(e.key===ACCESS_STORE){try{const updated=JSON.parse(e.newValue);if(updated?.slot===access.slot){access.activated=updated.activated===true;applyAccess();}}catch{}}});
   if ('serviceWorker' in navigator && location.protocol.startsWith('http')) navigator.serviceWorker.register('./sw.js').catch(()=>{});
 })();
+
 

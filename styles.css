@@ -215,3 +215,73 @@ body[data-theme="dark"] .composer textarea{
   box-shadow:none;
 }
 
+
+/* Overlay header: conversation scrolls behind separate floating controls. */
+.main-panel{position:relative;isolation:isolate}
+.chat-header,body[data-theme="dark"] .chat-header{
+  position:absolute;inset:0 0 auto;height:132px;padding:0;
+  background:transparent;border:0;box-shadow:none;
+  backdrop-filter:none;-webkit-backdrop-filter:none;
+  pointer-events:none;z-index:4;
+}
+.chat-header::before{
+  content:"";position:absolute;inset:0;
+  background:linear-gradient(to bottom,var(--message-bg),transparent);
+  opacity:.8;pointer-events:none;
+}
+.contact-heading{
+  position:absolute;top:10px;left:50%;transform:translateX(-50%);
+  display:flex;flex-direction:column;align-items:center;gap:2px;
+  min-width:90px;max-width:calc(100% - 148px);padding:6px 12px 8px;
+  border-radius:36px;background:rgba(255,255,255,.72);
+  box-shadow:0 8px 30px #0000000b;
+  backdrop-filter:blur(16px) saturate(1.2);
+  -webkit-backdrop-filter:blur(16px) saturate(1.2);
+  pointer-events:auto;
+}
+body[data-theme="dark"] .contact-heading{background:rgba(24,24,26,.70);box-shadow:0 8px 30px #0003}
+.contact-heading .avatar.small{width:56px;height:56px}
+.contact-heading .header-title{flex:none;background:transparent;border:0;box-shadow:none;padding:0 2px}
+.contact-heading .header-title h2{font-size:19px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.chat-header .mobile-back{
+  display:grid;top:17px;left:16px;width:44px;height:44px;padding:12px;
+  border:0;background:rgba(255,255,255,.72);
+  backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);
+  box-shadow:0 8px 30px #0000000b;pointer-events:auto;
+}
+body[data-theme="dark"] .chat-header .mobile-back{background:rgba(24,24,26,.70)}
+.chat-header .header-actions{top:19px;right:16px;pointer-events:auto}
+.chat-header .header-actions .icon-btn{background:transparent}
+.main-panel .messages{
+  padding-top:calc(var(--chat-header-height,132px) + 10px);
+  padding-bottom:calc(var(--composer-height,76px) + 12px);
+  scroll-padding-top:calc(var(--chat-header-height,132px) + 10px);
+  scroll-padding-bottom:calc(var(--composer-height,76px) + 12px);
+}
+.composer-wrap{
+  position:absolute;inset:auto 0 0;z-index:4;pointer-events:none;
+  background:transparent!important;border:0;
+  backdrop-filter:none;-webkit-backdrop-filter:none;
+}
+.composer-wrap::before{
+  content:"";position:absolute;inset:-16px 0 0;z-index:-1;
+  background:linear-gradient(to top,var(--message-bg),transparent);pointer-events:none;
+}
+.composer{pointer-events:auto}
+.composer .plus-btn,.composer textarea{
+  background:rgba(255,255,255,.78);backdrop-filter:blur(16px);
+  -webkit-backdrop-filter:blur(16px);
+}
+body[data-theme="dark"] .composer .plus-btn,
+body[data-theme="dark"] .composer textarea{background:rgba(24,24,26,.75)}
+
+.chat-header::before{
+  backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);
+  mask-image:linear-gradient(to bottom,#000 20%,transparent 100%);
+  -webkit-mask-image:linear-gradient(to bottom,#000 20%,transparent 100%);
+}
+.composer-wrap::before{
+  backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);
+  mask-image:linear-gradient(to top,#000 35%,transparent);
+  -webkit-mask-image:linear-gradient(to top,#000 35%,transparent);
+}
