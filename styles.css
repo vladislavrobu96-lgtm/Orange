@@ -179,3 +179,39 @@ body[data-theme="dark"] .chat-item.active{background:transparent}
 .license-gate .gate-footnote{font-size:12px;margin-top:22px}
 .access-input{text-align:center;letter-spacing:5px;text-transform:uppercase;font-size:23px}
 
+
+/* Floating controls on a continuous conversation background. */
+.chat-header,
+body[data-theme="dark"] .chat-header,
+.composer-wrap{
+  background:var(--message-bg);
+  border:0;
+  box-shadow:none;
+  backdrop-filter:none;
+  -webkit-backdrop-filter:none;
+}
+.header-title{
+  background:transparent;
+  border:0;
+  box-shadow:none;
+}
+.mobile-back,.plus-btn{
+  border:0;
+  background:var(--app-bg);
+  box-shadow:0 5px 24px #00000008;
+}
+body[data-theme="dark"] .mobile-back,
+body[data-theme="dark"] .plus-btn{
+  background:#111112;
+  box-shadow:none;
+}
+.composer textarea{
+  background:var(--app-bg);
+  border-color:color-mix(in srgb,var(--text) 9%,transparent);
+  box-shadow:0 5px 24px #00000006;
+}
+body[data-theme="dark"] .composer textarea{
+  background:#111112;
+  box-shadow:none;
+}
+
