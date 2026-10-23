@@ -1,34 +1,28 @@
-# Transport Messages
+# Transport Messages / Orange
 
-Transport Messages is a standalone web app with an iMessage-inspired interface.
+Standalone browser app with an iMessage-inspired interface, local message history, light/dark themes, neutral contact avatars and PWA offline support.
 
-## Publish on GitHub Pages
-1. Create a GitHub repository named `transport-messages`.
-2. Upload the files in this folder directly into the repository root.
-3. Open **Settings → Pages**.
-4. Select **Deploy from a branch**, branch `main`, folder `/(root)`, then save.
-5. Open the URL shown in the Pages section.
+## Access
 
-## Included
-- Responsive desktop and mobile layout.
-- Chats: 7000, 7001, Mom, Dad, Nastya, Friends.
-- Sending messages, chat search, clearing history, and new-chat shortcuts.
-- Light/dark themes, message size, compact layout, timestamp visibility, and Enter-to-send settings.
-- Editable profile display name.
-- Local access-key manager and administrator panel.
-- PWA manifest and service worker for app-shell caching and home-screen installation support.
+On first launch, the app picks and saves one random request number from 01 to 20. The owner enters the corresponding five-character key from their separate private table. Only the key for the selected number is accepted; letter case is ignored. Successful activation persists in this browser on this device. Updating the app keeps activation. Other browsers, private browsing sessions and clearing site data may require activation again.
 
-## Important behavior
-This version is intentionally standalone. It does not connect to an outside messaging service, transport provider, or remote account database. Messages, profile settings, access keys, and administrator settings are saved in the current browser on the current device. They do not automatically sync to other devices or users.
+The app contains SHA-256 key hashes. The plaintext owner table is delivered separately and must never be uploaded to the website. Keys can be reused for matching request numbers on different devices. There is no server, expiry, global revocation, one-device binding or usage tracking. Local activation can be bypassed by someone who edits the client or browser storage.
 
-The 7000 and 7001 chats accept four-digit codes. For a four-digit code, each chat sends two separate Romanian-language messages: first `Solicitarea este in curs de procesare.`, then an electronic-ticket message with a random nine-digit ticket number, the local date and time when the code was sent, `Valabil 1 ora`, `Pret 7 MDL`, and the submitted code as `Numar de bord`. This is a locally generated in-app ticket and is not connected to a transport operator or a live ticketing system.
+Existing browsers using an older release must activate once after this update. Their message histories are retained. Administrator PIN access does not activate normal use. The administrator view displays the activation status and retains PIN settings; it no longer offers unrelated key generation.
 
-The access-key and administrator features are local app functionality, not server-enforced security. The default administrator PIN is `2468`; change it in the administrator settings. The starter access key is `TM-START-2026`. Since both are part of a standalone browser app, they are not suitable for protecting sensitive information or controlling access across multiple customers/devices.
+## Publish
+
+Follow UPDATE.md. Upload the contents of this folder, including assets, to the root of the existing Orange repository. The owner-key file is not part of this folder or the website archive.
+
+## Messages
+
+Chats 7000 and 7001 accept four-digit codes and retain their local two-message response behavior. Generated nine-digit numbers begin with the four submitted digits, including leading zeroes. Messages are generated locally; there is no connection to a transport operator or live payment/ticket system, and these messages are not proof of fare payment.
 
 ## Files
-- `index.html` — app structure
-- `styles.css` — responsive styling and themes
-- `app.js` — chat, settings, profile, and local access management
-- `manifest.webmanifest` — PWA metadata
-- `sw.js` — offline shell cache
-- `icon.svg` — app icon
+
+- index.html — interface
+- app.js — conversations, local activation and settings
+- styles.css — responsive light/dark styling
+- manifest.webmanifest and sw.js — PWA/offline support
+- assets/ — icon sizes and SVG contact avatar
+- UPDATE.md — Russian installation instructions
