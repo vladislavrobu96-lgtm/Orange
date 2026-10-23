@@ -141,7 +141,6 @@ button:focus-visible{outline:2px solid #8b8b90;outline-offset:3px}
 .composer textarea::placeholder{color:#b0b0b5;opacity:1}
 .send-btn{position:absolute;right:5px;bottom:5px;width:34px;height:34px;background:var(--sms);font-size:26px;font-weight:500}
 .composer:not(.has-text) .send-btn{background:transparent;color:#b0b0b5;opacity:.6}
-.preview-island{display:none}
 .modal-backdrop{z-index:20;backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px)}.modal{border-radius:26px}.toast{z-index:30}
 body[data-theme="dark"] .chat-header{background:var(--glass)}
 body[data-theme="dark"] .chat-item.active{background:transparent}
@@ -158,15 +157,11 @@ body[data-theme="dark"] .chat-item.active{background:transparent}
   .mobile-back{display:grid;top:17px;left:16px}.header-actions{top:20px;right:16px}.header-actions .icon-btn{width:32px;height:32px;color:var(--muted);background:transparent}
   .messages{padding:9px 17px 18px}.message-row{max-width:86%}.bubble{padding:10px 14px;line-height:1.24}
   .composer-wrap{padding:10px 16px max(12px,env(safe-area-inset-bottom))}.composer{gap:12px}.composer textarea{font-size:16px}
-  .show-island:not(.has-native-safe-area) .app-shell{padding-top:42px}
-  .show-island:not(.has-native-safe-area) .preview-island{display:block;position:absolute;left:50%;top:8px;transform:translateX(-50%);width:126px;height:30px;border-radius:24px;background:#000;z-index:4;pointer-events:none}
-  .island-camera{position:absolute;right:11px;top:10px;width:9px;height:9px;border-radius:50%;background:#11111a;box-shadow:inset 0 0 3px #262640}
   .modal{max-height:calc(var(--viewport-height,100dvh) - 32px)}
 }
 @media(prefers-reduced-motion:reduce){*,*::before,*::after{animation:none!important;transition:none!important;scroll-behavior:auto!important}}
 .top-tool svg,.plus-btn svg,.send-btn svg,.icon-btn svg{width:22px;height:22px;fill:none;stroke:currentColor;stroke-width:1.7;stroke-linecap:round;stroke-linejoin:round;flex:none}
 .plus-btn svg{width:26px;height:26px}.send-btn{display:grid;place-items:center}.plus-btn{display:grid;place-items:center}
-body[data-theme="dark"] .preview-island{outline:1px solid #242428}
 @media(max-width:700px){
  .sidebar{padding-top:0}.side-top{position:absolute;left:0;right:0;top:12px;height:40px;z-index:2;padding:0 16px;pointer-events:none}.top-tools{pointer-events:none}.top-tool{pointer-events:auto}
  #topSettingsBtn{margin-left:auto}#newChatBtn{position:fixed;right:18px;bottom:max(16px,env(safe-area-inset-bottom));width:48px;height:48px;border:1px solid #ffffff88;box-shadow:0 5px 28px #0000000c;background:var(--glass);backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px)}
@@ -183,3 +178,4 @@ body[data-theme="dark"] .preview-island{outline:1px solid #242428}
 .license-gate p{font-size:15px;line-height:1.5;color:var(--muted)}
 .license-gate .gate-footnote{font-size:12px;margin-top:22px}
 .access-input{text-align:center;letter-spacing:5px;text-transform:uppercase;font-size:23px}
+

@@ -11,10 +11,10 @@
   function save(){localStorage.setItem(STORE,JSON.stringify(state));}
   let activeView='messages',adminTab='keys',toastTimer;
   const PREF_KEY='transportMessages_preferences';
-  const defaultPrefs={theme:'light',fontSize:'normal',enterToSend:true,compact:false,showTimes:false,island:true};
+  const defaultPrefs={theme:'light',fontSize:'normal',enterToSend:true,compact:false,showTimes:false};
   let prefs;try{prefs={...defaultPrefs,...JSON.parse(localStorage.getItem(PREF_KEY)||'{}')};}catch{prefs={...defaultPrefs};}
   function savePrefs(){localStorage.setItem(PREF_KEY,JSON.stringify(prefs));applyPrefs();}
-  function applyPrefs(){document.body.dataset.theme=prefs.theme==='dark'?'dark':'light';document.documentElement.style.setProperty('--message-font-size',prefs.fontSize==='small'?'15px':prefs.fontSize==='large'?'20px':'17px');document.body.classList.toggle('compact-messages',!!prefs.compact);document.body.classList.toggle('hide-message-times',!prefs.showTimes);document.body.classList.toggle('show-island',!!prefs.island);const meta=document.querySelector('meta[name=theme-color]');if(meta)meta.content=prefs.theme==='dark'?'#000000':'#ffffff';}
+  function applyPrefs(){document.body.dataset.theme=prefs.theme==='dark'?'dark':'light';document.documentElement.style.setProperty('--message-font-size',prefs.fontSize==='small'?'15px':prefs.fontSize==='large'?'20px':'17px');document.body.classList.toggle('compact-messages',!!prefs.compact);document.body.classList.toggle('hide-message-times',!prefs.showTimes);document.body.classList.remove('show-island');const meta=document.querySelector('meta[name=theme-color]');if(meta)meta.content=prefs.theme==='dark'?'#000000':'#ffffff';}
   applyPrefs();
   const chats={
     '7000':{name:'7000',subtitle:'Текстовое сообщение · SMS',type:'trolley',initial:[{id:'7000a',from:'system',text:'Trimiteți codul de patru cifre pentru procesare.',time:stamp()}]},
@@ -184,8 +184,7 @@
         <div class="settings-row"><div><label for="enterToggle">Enter отправляет сообщение</label><small>Если выключить, Enter добавит новую строку</small></div><input class="settings-switch" id="enterToggle" type="checkbox" ${prefs.enterToSend?'checked':''}></div>
         <div class="settings-row"><div><label for="timesToggle">Время у сообщений</label><small>Показывать время отправки</small></div><input class="settings-switch" id="timesToggle" type="checkbox" ${prefs.showTimes?'checked':''}></div>
       </div>
-      <div class="settings-row"><div><label for="islandToggle">Остров в макете</label><small>На iPhone с системным отступом скрывается автоматически</small></div><input class="settings-switch" id="islandToggle" type="checkbox" ${prefs.island?'checked':''}></div><button class="secondary-btn full" id="resetSettings">Сбросить настройки</button><button class="primary-btn full" id="modalOk">Готово</button>`,()=>{
-      $('#islandToggle').addEventListener('change',e=>{prefs.island=e.target.checked;savePrefs();});
+      <button class="secondary-btn full" id="resetSettings">Сбросить настройки</button><button class="primary-btn full" id="modalOk">Готово</button>`,()=>{
       $('#themeSelect').addEventListener('change',e=>{prefs.theme=e.target.value;savePrefs();});
       $('#fontSizeSelect').addEventListener('change',e=>{prefs.fontSize=e.target.value;savePrefs();});
       $('#compactToggle').addEventListener('change',e=>{prefs.compact=e.target.checked;savePrefs();});
@@ -235,3 +234,4 @@
   window.addEventListener('storage',e=>{if(e.key===ACCESS_STORE){try{const updated=JSON.parse(e.newValue);if(updated?.slot===access.slot){access.activated=updated.activated===true;applyAccess();}}catch{}}});
   if ('serviceWorker' in navigator && location.protocol.startsWith('http')) navigator.serviceWorker.register('./sw.js').catch(()=>{});
 })();
+
