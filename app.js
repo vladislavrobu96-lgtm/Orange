@@ -22,7 +22,21 @@
     'mom':{name:'Мама',subtitle:'Личная переписка',type:'mom',initial:[{id:'m1',from:'contact',text:'Доброе утро ❤️',time:'09:12'},{id:'m2',from:'user',text:'Доброе утро!',time:'09:14'},{id:'m3',from:'contact',text:'Не забудь купить хлеб по дороге 🙂',time:'09:24'}]},
     'dad':{name:'Папа',subtitle:'Личная переписка',type:'dad',initial:[{id:'d1',from:'contact',text:'Во сколько будешь дома?',time:'08:51'},{id:'d2',from:'user',text:'Примерно к шести.',time:'08:53'}]},
     'nastya':{name:'Настя',subtitle:'iMessage',type:'nastya',initial:[{id:'n1',from:'user',text:'Привет, как дела?',time:'Вчера'},{id:'n2',from:'contact',text:'Всё хорошо 😊 А у тебя?',time:'Вчера'},{id:'n3',from:'user',text:'Тоже хорошо!',time:'Вчера'},{id:'n4',from:'contact',text:'Хорошо, тогда до встречи!',time:'Вчера'}]},
-    'friends':{name:'Друзья',subtitle:'Групповой чат · 4 участника',type:'friends',initial:[{id:'f1',from:'contact',text:'Кто сегодня гуляет?',time:'Вчера'},{id:'f2',from:'user',text:'Я могу после обеда.',time:'Вчера'},{id:'f3',from:'contact',text:'Давайте тогда в 16:00!',time:'Вчера'}]}
+    "gleb":{"name": "Глеб", "subtitle": "Личная переписка", "type": "personal", "initial": [{"id": "gleb1", "from": "contact", "text": "Встретимся завтра?", "time": "Вчера"}, {"id": "gleb2", "from": "user", "text": "Да, давай после обеда.", "time": "Вчера"}]},
+    "sasha":{"name": "Саша", "subtitle": "Личная переписка", "type": "personal", "initial": [{"id": "sasha1", "from": "contact", "text": "Ты уже дома?", "time": "Вчера"}, {"id": "sasha2", "from": "user", "text": "Да, только что пришёл.", "time": "Вчера"}]},
+    "polina":{"name": "Полина", "subtitle": "Личная переписка", "type": "personal", "initial": [{"id": "polina1", "from": "contact", "text": "Спасибо за фотографии!", "time": "Вчера"}, {"id": "polina2", "from": "user", "text": "Пожалуйста 😊", "time": "Вчера"}]},
+    "andrei":{"name": "Андрей", "subtitle": "Личная переписка", "type": "personal", "initial": [{"id": "andrei1", "from": "contact", "text": "Во сколько начинаем?", "time": "Вчера"}, {"id": "andrei2", "from": "user", "text": "Давай в шесть.", "time": "Вчера"}]},
+    "nikita":{"name": "Никита", "subtitle": "Личная переписка", "type": "personal", "initial": [{"id": "nikita1", "from": "contact", "text": "Как прошёл день?", "time": "Вчера"}, {"id": "nikita2", "from": "user", "text": "Хорошо, вечером расскажу.", "time": "Вчера"}]},
+    "dima":{"name": "Дима", "subtitle": "Личная переписка", "type": "personal", "initial": [{"id": "dima1", "from": "contact", "text": "Созвонимся позже?", "time": "Вчера"}, {"id": "dima2", "from": "user", "text": "Да, напиши, когда освободишься.", "time": "Вчера"}]},
+    "daniel":{"name": "Даниил", "subtitle": "Личная переписка", "type": "personal", "initial": [{"id": "daniel1", "from": "contact", "text": "Скинул тебе всё, посмотри.", "time": "Вчера"}, {"id": "daniel2", "from": "user", "text": "Спасибо, сейчас посмотрю.", "time": "Вчера"}]},
+    "artem":{"name": "Артём", "subtitle": "Личная переписка", "type": "personal", "initial": [{"id": "artem1", "from": "contact", "text": "Завтра будешь свободен?", "time": "Вчера"}, {"id": "artem2", "from": "user", "text": "Да, какие планы?", "time": "Вчера"}]},
+    "maxim":{"name": "Максим", "subtitle": "Личная переписка", "type": "personal", "initial": [{"id": "maxim1", "from": "contact", "text": "Я уже на месте.", "time": "Вчера"}, {"id": "maxim2", "from": "user", "text": "Скоро подойду.", "time": "Вчера"}]},
+    "anna":{"name": "Аня", "subtitle": "Личная переписка", "type": "personal", "initial": [{"id": "anna1", "from": "contact", "text": "Привет! Есть минутка?", "time": "Вчера"}, {"id": "anna2", "from": "user", "text": "Привет, да, слушаю.", "time": "Вчера"}]},
+    "maria":{"name": "Мария", "subtitle": "Личная переписка", "type": "personal", "initial": [{"id": "maria1", "from": "contact", "text": "Получилось разобраться?", "time": "Вчера"}, {"id": "maria2", "from": "user", "text": "Да, всё работает!", "time": "Вчера"}]},
+    "katya":{"name": "Катя", "subtitle": "Личная переписка", "type": "personal", "initial": [{"id": "katya1", "from": "contact", "text": "Увидимся в выходные?", "time": "Вчера"}, {"id": "katya2", "from": "user", "text": "Договорились 😊", "time": "Вчера"}]},
+    "grandma":{"name": "Бабушка", "subtitle": "Личная переписка", "type": "personal", "initial": [{"id": "grandma1", "from": "contact", "text": "Заходи на чай ❤️", "time": "Вчера"}, {"id": "grandma2", "from": "user", "text": "Обязательно зайду!", "time": "Вчера"}]},
+    "grandpa":{"name": "Дедушка", "subtitle": "Личная переписка", "type": "personal", "initial": [{"id": "grandpa1", "from": "contact", "text": "Как твои дела?", "time": "Вчера"}, {"id": "grandpa2", "from": "user", "text": "Всё хорошо, скоро позвоню.", "time": "Вчера"}]},
+    "coach":{"name": "Тренер", "subtitle": "Личная переписка", "type": "personal", "initial": [{"id": "coach1", "from": "contact", "text": "Завтра тренировка в 18:00.", "time": "Вчера"}, {"id": "coach2", "from": "user", "text": "Хорошо, буду вовремя.", "time": "Вчера"}]}
   };
   // Upgrade existing local storage from older builds by adding the built-in fictional chats.
   for (const [id, chat] of Object.entries(chats)) {
@@ -57,34 +71,64 @@
   }
   function showToast(message){const el=$('#toast');el.textContent=message;el.classList.add('show');clearTimeout(toastTimer);toastTimer=setTimeout(()=>el.classList.remove('show'),2600);}
   function esc(s){return String(s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));}
-  function setChat(id){if(!chats[id])return;state.activeChat=id;save();renderChat();$$('.chat-item').forEach(b=>b.classList.toggle('active',b.dataset.chat===id));document.querySelector('.app-shell').classList.add('chat-open');$$('.nav-link').forEach(x=>x.classList.toggle('selected',x.dataset.view==='messages'));}
+  const mobileLayout=matchMedia('(max-width:700px)');
+  const reducedMotion=matchMedia('(prefers-reduced-motion:reduce)');
+  function syncNavigationAccessibility(){
+    const open=$('.app-shell').classList.contains('chat-open');
+    $('#sidebar').inert=mobileLayout.matches&&open;
+    $('.main-panel').inert=mobileLayout.matches&&!open;
+  }
+  function setMobileView(open){
+    if(document.activeElement instanceof HTMLElement)document.activeElement.blur();
+    $('.app-shell').classList.toggle('chat-open',open);
+    syncNavigationAccessibility();
+  }
+  mobileLayout.addEventListener('change',syncNavigationAccessibility);
+  function setChat(id){
+    if(!chats[id])return;
+    state.activeChat=id;save();renderChat();
+    $$('.chat-item').forEach(b=>b.classList.toggle('active',b.dataset.chat===id));
+    setMobileView(true);
+    $$('.nav-link').forEach(x=>x.classList.toggle('selected',x.dataset.view==='messages'));
+  }
+  function messageHTML(m,animate=false){
+    const text=m.from==='ticket'?(m.text||makeTicketText(String(m.route||'0000').slice(0,4),new Date(m.issuedAt||Date.now()),m.ticketNumber)):m.text;
+    return `<div class="message-row ${m.from==='user'?'outgoing':'incoming'}${animate?' is-new':''}"><div class="bubble">${esc(text)}</div><span class="message-time">${esc(m.timeSent||m.time||'')}</span></div>`;
+  }
   function renderChat(){
+    stopMessageScroll();
     const id=state.activeChat,c=chats[id];
     $('#headerName').textContent=c.name;$('#headerSubtitle').textContent=c.subtitle;
-    $('#headerAvatar').textContent='';
-    $('#headerAvatar').className='avatar small '+c.type;
+    $('#headerAvatar').textContent='';$('#headerAvatar').className='avatar small '+c.type;
     $('#composerHint').textContent='';
-    const box=$('#messages');
-    box.innerHTML='<div class="conversation-type">'+esc(c.subtitle)+'</div><div class="day-divider">Сегодня</div>';
-    const list=state.messages[id]||[];
-    if(!list.length) box.innerHTML+='<div class="empty-state">История пока пуста. Напишите сообщение ниже.</div>';
-    for(const m of list){
-      if(m.from==='ticket'){
-        // Backward compatibility for ticket entries stored by earlier builds.
-        const legacyTicketText = m.text || makeTicketText(String(m.route||'0000').slice(0,4), new Date(m.issuedAt || Date.now()), m.ticketNumber);
-        box.insertAdjacentHTML('beforeend',`<div class="message-row incoming"><div class="bubble">${esc(legacyTicketText)}</div><span class="message-time">${esc(m.timeSent||m.time||'')}</span></div>`);
-        continue;
-      }
-      const outgoing=m.from==='user';
-      box.insertAdjacentHTML('beforeend',`<div class="message-row ${outgoing?'outgoing':'incoming'}"><div class="bubble">${esc(m.text)}</div><span class="message-time">${esc(m.time||'')}</span></div>`);
-    }
-    // Keep the message list itself as the scroll container and force a bottom position
-    // after layout, including on iOS Safari where scrollHeight may update one frame later.
-    const scrollToLatest=()=>{box.scrollTop=box.scrollHeight;box.scrollTo({top:box.scrollHeight,behavior:'auto'});};
-    scrollToLatest();
-    requestAnimationFrame(()=>{scrollToLatest();requestAnimationFrame(()=>{scrollToLatest();setTimeout(scrollToLatest,80);});});
+    const box=$('#messages'),list=state.messages[id]||[];
+    box.innerHTML='<div class="conversation-type">'+esc(c.subtitle)+'</div><div class="day-divider">Сегодня</div>'+list.map(m=>messageHTML(m)).join('')+(!list.length?'<div class="empty-state">История пока пуста. Напишите сообщение ниже.</div>':'');
+    box.scrollTop=box.scrollHeight;
+    requestAnimationFrame(()=>{if(state.activeChat===id)box.scrollTop=box.scrollHeight;});
   }
-  function pushMessage(id,m){if(!state.messages[id])state.messages[id]=[];state.messages[id].push(m);save();if(state.activeChat===id)renderChat();updateChatPreviews();}
+  let scrollAnimation=0;
+  function stopMessageScroll(){cancelAnimationFrame(scrollAnimation);scrollAnimation=0;}
+  function scrollToNewest(){
+    stopMessageScroll();
+    const box=$('#messages'),start=box.scrollTop,target=box.scrollHeight-box.clientHeight;
+    if(reducedMotion.matches){box.scrollTop=target;return;}
+    const began=performance.now();
+    function tick(now){const progress=Math.min(1,(now-began)/260);box.scrollTop=start+(target-start)*(1-Math.pow(1-progress,3));if(progress<1)scrollAnimation=requestAnimationFrame(tick);else scrollAnimation=0;}
+    scrollAnimation=requestAnimationFrame(tick);
+  }
+  for(const event of ['wheel','touchstart','pointerdown'])$('#messages').addEventListener(event,stopMessageScroll,{passive:true});
+  function pushMessage(id,m){
+    if(!state.messages[id])state.messages[id]=[];
+    state.messages[id].push(m);save();
+    if(state.activeChat===id){
+      const box=$('#messages');
+      const follow=m.from==='user'||box.scrollHeight-box.clientHeight-box.scrollTop<100;
+      box.querySelector('.empty-state')?.remove();
+      box.insertAdjacentHTML('beforeend',messageHTML(m,true));
+      if(follow)scrollToNewest();else stopMessageScroll();
+    }
+    updateChatPreviews();
+  }
   function updateChatPreviews(){for(const b of $$('.chat-item')){const id=b.dataset.chat;const list=state.messages[id]||[];const last=list[list.length-1];const p=b.querySelector('.chat-preview p');const t=b.querySelector('.chat-line time');if(p&&last)p.textContent=last.text|| (last.from==='ticket'?'Bilet electronic': 'Сообщение');if(t&&last)t.textContent=last.time||'сейчас';}}
   function makeTicketText(code, sentAt = new Date(), ticketNumber = null){
     const pad = n => String(n).padStart(2,'0');
@@ -161,8 +205,10 @@
   window.visualViewport?.addEventListener('resize',fitViewport);window.addEventListener('resize',fitViewport);fitViewport();
   document.addEventListener('keydown',e=>{if(e.key==='Escape')closeModal();});
   $('#messageForm').addEventListener('submit',e=>{e.preventDefault();const input=$('#messageInput');const text=input.value;input.value='';resizeComposer();handleSend(text);});
-  $$('.chat-item').forEach(b=>b.addEventListener('click',()=>setChat(b.dataset.chat)));
-  $('#mobileBack').addEventListener('click',()=>document.querySelector('.app-shell').classList.remove('chat-open'));
+  $('#chatList').innerHTML=Object.entries(chats).map(([id,c])=>`<button class="chat-item" data-chat="${esc(id)}"><span class="avatar ${c.type}" aria-hidden="true"></span><span class="chat-preview"><span class="chat-line"><b>${esc(c.name)}</b><time></time></span><p></p></span></button>`).join('');
+  $('#chatCount').textContent=Object.keys(chats).length+' чатов';
+  $('#chatList').addEventListener('click',e=>{const button=e.target.closest('[data-chat]');if(button)setChat(button.dataset.chat);});
+  $('#mobileBack').addEventListener('click',()=>setMobileView(false));
   $('#searchInput').addEventListener('input',e=>{$$('.chat-item').forEach(b=>b.hidden=!(b.textContent.toLowerCase().includes(e.target.value.toLowerCase())));});
   $('#newChatBtn').addEventListener('click',()=>openModal(`<h2>Новый чат</h2><p class="modal-lead">Выберите переписку, чтобы открыть её.</p><div class="quick-chat-list">${Object.entries(chats).map(([id,c])=>`<button class="quick-chat-option" data-open-chat="${esc(id)}"><span class="avatar ${c.type}" aria-hidden="true"></span><span><b>${esc(c.name)}</b><small>${esc(c.subtitle)}</small></span><span class="quick-chat-arrow">›</span></button>`).join('')}</div><button class="secondary-btn full" id="modalOk">Отмена</button>`,()=>$$('[data-open-chat]').forEach(b=>b.addEventListener('click',()=>{setChat(b.dataset.openChat);closeModal();}))));
   $('#attachBtn').addEventListener('click',()=>{const isTransport=state.activeChat==='7000'||state.activeChat==='7001';openModal(`<h2>${isTransport?'Код маршрута':'Действия с сообщением'}</h2><p class="modal-lead">${isTransport?'Выберите пример четырёхзначного кода или введите свой.':'Можно быстро вставить текст в поле сообщения.'}</p>${isTransport?`<div class="quick-code-grid">${['1001','1002','2001','3001'].map(code=>`<button class="quick-code" data-code="${code}">${code}</button>`).join('')}</div>`:''}<label class="field-label" for="quickMessage">${isTransport?'Или свой код / текст':'Текст сообщения'}</label><input class="field" id="quickMessage" maxlength="500" placeholder="${isTransport?'Например, 1001':'Введите сообщение'}"><button class="primary-btn full" id="insertMessage">Вставить в сообщение</button><button class="secondary-btn full" id="modalOk">Закрыть</button>`,()=>{ $$('[data-code]').forEach(b=>b.addEventListener('click',()=>{$('#quickMessage').value=b.dataset.code;}));$('#insertMessage')?.addEventListener('click',()=>{const val=$('#quickMessage').value.trim();if(!val){$('#quickMessage').focus();showToast('Введите текст или код.');return;}$('#messageInput').value=val;closeModal();resizeComposer();$('#messageInput').focus();});});});
@@ -174,7 +220,7 @@
   $('#topAdminBtn').addEventListener('click',openAdmin);
   // The small top-left key icon is always visible; it opens PIN login or the admin panel.
   $('#profileMenu').addEventListener('click',()=>openModal(`<h2>Профиль</h2><label class="field-label" for="profileNameInput">Имя пользователя</label><input class="field" id="profileNameInput" maxlength="40" value="${esc(state.profileName||'Пользователь')}" placeholder="Как к тебе обращаться"><button class="primary-btn full" id="saveProfileName">Сохранить имя</button><button class="secondary-btn full" id="goActivation">Управление доступом</button><button class="secondary-btn full" id="goSettings">Настройки приложения</button><button class="secondary-btn full" id="modalOk">Закрыть</button>`,()=>{$('#saveProfileName')?.addEventListener('click',()=>{state.profileName=$('#profileNameInput').value.trim()||'Пользователь';save();$('#profileName').textContent=state.profileName;closeModal();showToast('Имя сохранено.');});$('#goActivation')?.addEventListener('click',activationModal);$('#goSettings')?.addEventListener('click',openSettings);}));
-  $$('.nav-link').forEach(b=>b.addEventListener('click',()=>{if(b.dataset.view==='settings'){activeView='settings';$$('.nav-link').forEach(x=>x.classList.toggle('selected',x===b));openSettings();}else{activeView='messages';$$('.nav-link').forEach(x=>x.classList.toggle('selected',x===b));document.querySelector('.app-shell').classList.remove('chat-open');}}));
+  $$('.nav-link').forEach(b=>b.addEventListener('click',()=>{if(b.dataset.view==='settings'){activeView='settings';$$('.nav-link').forEach(x=>x.classList.toggle('selected',x===b));openSettings();}else{activeView='messages';$$('.nav-link').forEach(x=>x.classList.toggle('selected',x===b));setMobileView(false);}}));
   const backdrop=$('#modalBackdrop');function openModal(html,after){$('#modalContent').innerHTML=html;backdrop.classList.remove('hidden');$('#modalContent').querySelectorAll('#modalOk').forEach(b=>b.addEventListener('click',closeModal));if(after)after();}function closeModal(){backdrop.classList.add('hidden');$('#modalContent').innerHTML='';}$('#modalClose').addEventListener('click',closeModal);backdrop.addEventListener('click',e=>{if(e.target===backdrop)closeModal();});
   function openSettings(){
     openModal(`<h2>Настройки приложения</h2><p class="modal-lead">Настрой интерфейс под себя. Изменения сохраняются на этом устройстве.</p>
@@ -230,7 +276,7 @@
   $('#gateAdminAction').addEventListener('click',openAdmin);
   // Admin access is available from the small key icon in the upper-left toolbar.
   setChat(state.activeChat||'7000');
-  if(matchMedia('(max-width:700px)').matches)$('.app-shell').classList.remove('chat-open');
+  if(mobileLayout.matches)setMobileView(false);
   $$('.chat-item .avatar').forEach(a=>{a.textContent='';a.setAttribute('aria-hidden','true');});
   updateChatPreviews();
   applyAccess();

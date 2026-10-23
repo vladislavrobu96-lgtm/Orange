@@ -285,3 +285,38 @@ body[data-theme="dark"] .composer textarea{background:rgba(24,24,26,.75)}
   mask-image:linear-gradient(to top,#000 35%,transparent);
   -webkit-mask-image:linear-gradient(to top,#000 35%,transparent);
 }
+
+/* Separate floating contact controls, matching the video reference. */
+.contact-heading,body[data-theme="dark"] .contact-heading{
+  top:12px;gap:0;padding:0;min-width:0;border-radius:0;
+  background:transparent;box-shadow:none;
+  backdrop-filter:none;-webkit-backdrop-filter:none;
+}
+.contact-heading .avatar.small{width:58px;height:58px;box-shadow:0 3px 12px #00000012}
+.contact-heading .header-title{
+  display:flex;align-items:center;justify-content:center;gap:5px;
+  margin-top:-1px;max-width:100%;min-height:30px;padding:3px 12px;
+  border:1px solid #ffffff70;border-radius:22px;
+  background:rgba(255,255,255,.76);box-shadow:0 5px 20px #0000000b;
+  backdrop-filter:blur(18px) saturate(1.3);-webkit-backdrop-filter:blur(18px) saturate(1.3);
+}
+.contact-heading .header-title h2{font-size:18px;font-weight:650;line-height:24px}
+body[data-theme="dark"] .contact-heading .header-title{background:rgba(38,38,40,.76);border-color:#ffffff1c;box-shadow:0 5px 20px #0003}
+.message-row{animation:none}
+.message-row.is-new{animation:new-message .26s cubic-bezier(.2,.75,.25,1)}
+@keyframes new-message{from{opacity:0;transform:translateY(8px) scale(.98)}to{opacity:1;transform:none}}
+.messages{overscroll-behavior-y:contain;overflow-anchor:none;-webkit-overflow-scrolling:touch}
+.chat-item[hidden]{display:none!important}
+@media(max-width:700px){
+  .app-shell{position:relative;display:block}
+  .app-shell .sidebar,.app-shell .main-panel{position:absolute;inset:0;display:flex; width:100%;height:100%;
+    transition:transform .42s cubic-bezier(.22,.8,.2,1),opacity .42s cubic-bezier(.22,.8,.2,1);}
+  .app-shell .sidebar{transform:translateX(0);opacity:1;z-index:1}
+  .app-shell .main-panel{transform:translateX(100%);z-index:2;box-shadow:-8px 0 25px #0000000c;pointer-events:none}
+  .app-shell.chat-open .sidebar{display:flex;transform:translateX(-24%);opacity:.55;pointer-events:none}
+  .app-shell.chat-open .main-panel{display:flex;transform:translateX(0);pointer-events:auto}
+}
+@media(prefers-reduced-motion:reduce){
+  .app-shell .sidebar,.app-shell .main-panel{transition:none}
+  .message-row.is-new{animation:none}
+}
