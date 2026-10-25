@@ -145,7 +145,7 @@ svg{display:block}
 
 .avatar{
   flex:none;width:var(--avatar-list);height:var(--avatar-list);border-radius:50%;
-  background:#A6BBE0 url('assets/avatar.svg') center/cover no-repeat;color:transparent;font-size:0;
+  background:#cecece url('assets/avatar.svg') center/cover no-repeat;color:transparent;font-size:0;
 }
 .chat-preview{position:relative;flex:1;min-width:0;align-self:stretch;display:flex;flex-direction:column;justify-content:center;padding-right:20px}
 .chat-preview::after{

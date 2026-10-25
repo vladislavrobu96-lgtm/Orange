@@ -267,15 +267,15 @@
   $('#messageInput').addEventListener('keydown',e=>{if(e.key==='Enter'&&!e.shiftKey&&!e.isComposing&&prefs.enterToSend){e.preventDefault();$('#messageForm').requestSubmit();}});
   function activationModal(){
     if(access.activated){showToast('Доступ уже активирован на этом устройстве.');return;}
-    openModal(`<h2>Запрос № ${String(access.slot+1).padStart(2,'0')}</h2><p class="modal-lead">Введите соответствующий ключ из таблицы владельца.</p><label class="field-label" for="licenseInput">Ключ доступа</label><input class="field access-input" id="licenseInput" placeholder="5 букв и цифр" maxlength="5" autocomplete="off" autocapitalize="characters" spellcheck="false"><div id="activationMessage" role="status"></div><button class="primary-btn full" id="activateBtn">Открыть приложение</button><button class="secondary-btn full" id="modalOk">Отмена</button>`,()=>{
+    openModal(`<h2>Запрос № ${String(access.slot+1).padStart(2,'0')}</h2><p class="modal-lead">Введите соответствующий ключ из таблицы владельца.</p><label class="field-label" for="licenseInput">Ключ доступа</label><input class="field access-input" id="licenseInput" placeholder="5 букв и цифр" maxlength="32" autocomplete="off" autocapitalize="characters" spellcheck="false"><div id="activationMessage" role="status"></div><button class="primary-btn full" id="activateBtn">Открыть приложение</button><button class="secondary-btn full" id="modalOk">Отмена</button>`,()=>{
       $('#activateBtn').addEventListener('click',async()=>{
-        const value=$('#licenseInput').value.trim().toUpperCase();const msg=$('#activationMessage');
+        const value=$('#licenseInput').value.replace(/\s/g,'').toUpperCase();const msg=$('#activationMessage');
         if(!/^[A-Z0-9]{5}$/.test(value)){msg.className='form-error';msg.textContent='Введите 5 латинских букв и цифр.';return;}
         const btn=$('#activateBtn');btn.disabled=true;
         try{
           const hash=await crypto.subtle.digest('SHA-256',new TextEncoder().encode(value));
           const hex=[...new Uint8Array(hash)].map(x=>x.toString(16).padStart(2,'0')).join('');
-          if(hex!==ACCESS_HASHES[access.slot]){msg.className='form-error';msg.textContent='Ключ не подходит для этого номера запроса.';return;}
+          if(hex!==ACCESS_HASHES[access.slot]){msg.className='form-error';msg.textContent='Ключ не подходит для запроса № '+String(access.slot+1).padStart(2,'0')+'.';return;}
           access.activated=true;saveAccess();save();applyAccess();closeModal();showToast('Доступ активирован.');
         }catch{msg.className='form-error';msg.textContent='Не удалось проверить ключ. Откройте приложение по HTTPS или через localhost.';}
         finally{if(btn.isConnected)btn.disabled=false;}
