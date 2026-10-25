@@ -78,11 +78,23 @@
     $('#sidebar').inert=mobileLayout.matches&&open;
     $('.main-panel').inert=mobileLayout.matches&&!open;
   }
-  function setMobileView(open){
+  let suppressHistory=false;
+  function setMobileView(open,pushHistory=true){
     if(document.activeElement instanceof HTMLElement)document.activeElement.blur();
-    $('.app-shell').classList.toggle('chat-open',open);
+    const shell=$('.app-shell');
+    const wasOpen=shell.classList.contains('chat-open');
+    shell.classList.toggle('chat-open',open);
     syncNavigationAccessibility();
+    if(mobileLayout.matches&&pushHistory&&!suppressHistory){
+      if(open&&!wasOpen)history.pushState({chatOpen:true},'');
+      else if(!open&&wasOpen&&history.state&&history.state.chatOpen)history.back();
+    }
   }
+  window.addEventListener('popstate',()=>{
+    if(mobileLayout.matches&&$('.app-shell').classList.contains('chat-open')){
+      suppressHistory=true;setMobileView(false,false);suppressHistory=false;
+    }
+  });
   mobileLayout.addEventListener('change',syncNavigationAccessibility);
   function setChat(id){
     if(!chats[id])return;
@@ -91,9 +103,9 @@
     setMobileView(true);
     $$('.nav-link').forEach(x=>x.classList.toggle('selected',x.dataset.view==='messages'));
   }
-  function messageHTML(m,animate=false){
+  function messageHTML(m,animate=false,isTail=false){
     const text=m.from==='ticket'?(m.text||makeTicketText(String(m.route||'0000').slice(0,4),new Date(m.issuedAt||Date.now()),m.ticketNumber)):m.text;
-    return `<div class="message-row ${m.from==='user'?'outgoing':'incoming'}${animate?' is-new':''}"><div class="bubble">${esc(text)}</div><span class="message-time">${esc(m.timeSent||m.time||'')}</span></div>`;
+    return `<div class="message-row ${m.from==='user'?'outgoing':'incoming'}${animate?' is-new':''}"><div class="bubble${isTail?' tail':''}">${esc(text)}</div><span class="message-time">${esc(m.timeSent||m.time||'')}</span></div>`;
   }
   function renderChat(){
     stopMessageScroll();
@@ -102,7 +114,8 @@
     $('#headerAvatar').textContent='';$('#headerAvatar').className='avatar small '+c.type;
     $('#composerHint').textContent='';
     const box=$('#messages'),list=state.messages[id]||[];
-    box.innerHTML='<div class="conversation-type">'+esc(c.subtitle)+'</div><div class="day-divider">Сегодня</div>'+list.map(m=>messageHTML(m)).join('')+(!list.length?'<div class="empty-state">История пока пуста. Напишите сообщение ниже.</div>':'');
+    const rendered=list.map((m,i)=>{const next=list[i+1];const side=m.from==='user'?'user':'contact';const nextSide=next?(next.from==='user'?'user':'contact'):'';const tail=side!==nextSide;return messageHTML(m,false,tail);}).join('');
+    box.innerHTML='<div class="conversation-type">'+esc(c.subtitle)+'</div><div class="day-divider">Сегодня</div>'+rendered+(!list.length?'<div class="empty-state">История пока пуста. Напишите сообщение ниже.</div>':'');
     box.scrollTop=box.scrollHeight;
     requestAnimationFrame(()=>{if(state.activeChat===id)box.scrollTop=box.scrollHeight;});
   }
@@ -124,7 +137,11 @@
       const box=$('#messages');
       const follow=m.from==='user'||box.scrollHeight-box.clientHeight-box.scrollTop<100;
       box.querySelector('.empty-state')?.remove();
-      box.insertAdjacentHTML('beforeend',messageHTML(m,true));
+      const rows=box.querySelectorAll('.message-row');
+      const lastRow=rows[rows.length-1];
+      const side=m.from==='user'?'outgoing':'incoming';
+      if(lastRow&&lastRow.classList.contains(side))lastRow.querySelector('.bubble')?.classList.remove('tail');
+      box.insertAdjacentHTML('beforeend',messageHTML(m,true,true));
       if(follow)scrollToNewest();else stopMessageScroll();
     }
     updateChatPreviews();
@@ -197,12 +214,19 @@
   }
   function resizeComposer(){const input=$('#messageInput');input.style.height='auto';input.style.height=Math.min(input.scrollHeight,112)+'px';$('.composer').classList.toggle('has-text',!!input.value.trim());}
   $('#messageInput').addEventListener('input',resizeComposer);
-  $('#messageInput').addEventListener('focus',()=>setTimeout(()=>{const box=$('#messages');box.scrollTop=box.scrollHeight;},180));
-  function fitViewport(){if(window.visualViewport){document.documentElement.style.setProperty('--viewport-height',window.visualViewport.height+'px');}const probe=document.createElement('div');probe.style.paddingTop='env(safe-area-inset-top)';document.body.append(probe);document.body.classList.toggle('has-native-safe-area',parseFloat(getComputedStyle(probe).paddingTop)>0);probe.remove();}
+  function fitViewport(){
+    const vv=window.visualViewport;
+    const h=vv?vv.height:window.innerHeight;
+    const top=vv?vv.offsetTop:0;
+    document.documentElement.style.setProperty('--vvh',h+'px');
+    document.documentElement.style.setProperty('--vvtop',top+'px');
+    const kbdOpen=vv&&(window.innerHeight-vv.height>100);
+    document.body.classList.toggle('kbd-open',!!kbdOpen);
+  }
   function syncOverlayInsets(){const panel=$('.main-panel');panel.style.setProperty('--composer-height',$('.composer-wrap').offsetHeight+'px');panel.style.setProperty('--chat-header-height',$('.chat-header').offsetHeight+'px');}
   if('ResizeObserver' in window){const overlayObserver=new ResizeObserver(syncOverlayInsets);overlayObserver.observe($('.composer-wrap'));overlayObserver.observe($('.chat-header'));}else{window.addEventListener('resize',syncOverlayInsets);}
   syncOverlayInsets();
-  window.visualViewport?.addEventListener('resize',fitViewport);window.addEventListener('resize',fitViewport);fitViewport();
+  window.visualViewport?.addEventListener('resize',fitViewport);window.visualViewport?.addEventListener('scroll',fitViewport);window.addEventListener('resize',fitViewport);fitViewport();
   document.addEventListener('keydown',e=>{if(e.key==='Escape')closeModal();});
   $('#messageForm').addEventListener('submit',e=>{e.preventDefault();const input=$('#messageInput');const text=input.value;input.value='';resizeComposer();handleSend(text);});
   $('#chatList').innerHTML=Object.entries(chats).map(([id,c])=>`<button class="chat-item" data-chat="${esc(id)}"><span class="avatar ${c.type}" aria-hidden="true"></span><span class="chat-preview"><span class="chat-line"><b>${esc(c.name)}</b><time></time></span><p></p></span></button>`).join('');
@@ -217,8 +241,6 @@
   $('#clearChatBtn').addEventListener('click',()=>openModal(`<h2>Очистить историю?</h2><p class="modal-lead">История чата ${state.activeChat} будет удалена.</p><button class="danger-btn full" id="confirmClear">Удалить историю</button><button class="secondary-btn full" id="modalOk">Отмена</button>`,()=>{$('#confirmClear')?.addEventListener('click',()=>{state.messages[state.activeChat]=[];save();renderChat();updateChatPreviews();closeModal();showToast('История очищена.');});}));
   $('#topSettingsBtn').addEventListener('click',openSettings);
   $('#topAuthBtn').addEventListener('click',()=>$('#profileMenu').click());
-  $('#topAdminBtn').addEventListener('click',openAdmin);
-  // The small top-left key icon is always visible; it opens PIN login or the admin panel.
   $('#profileMenu').addEventListener('click',()=>openModal(`<h2>Профиль</h2><label class="field-label" for="profileNameInput">Имя пользователя</label><input class="field" id="profileNameInput" maxlength="40" value="${esc(state.profileName||'Пользователь')}" placeholder="Как к тебе обращаться"><button class="primary-btn full" id="saveProfileName">Сохранить имя</button><button class="secondary-btn full" id="goActivation">Управление доступом</button><button class="secondary-btn full" id="goSettings">Настройки приложения</button><button class="secondary-btn full" id="modalOk">Закрыть</button>`,()=>{$('#saveProfileName')?.addEventListener('click',()=>{state.profileName=$('#profileNameInput').value.trim()||'Пользователь';save();$('#profileName').textContent=state.profileName;closeModal();showToast('Имя сохранено.');});$('#goActivation')?.addEventListener('click',activationModal);$('#goSettings')?.addEventListener('click',openSettings);}));
   $$('.nav-link').forEach(b=>b.addEventListener('click',()=>{if(b.dataset.view==='settings'){activeView='settings';$$('.nav-link').forEach(x=>x.classList.toggle('selected',x===b));openSettings();}else{activeView='messages';$$('.nav-link').forEach(x=>x.classList.toggle('selected',x===b));setMobileView(false);}}));
   const backdrop=$('#modalBackdrop');function openModal(html,after){$('#modalContent').innerHTML=html;backdrop.classList.remove('hidden');$('#modalContent').querySelectorAll('#modalOk').forEach(b=>b.addEventListener('click',closeModal));if(after)after();}function closeModal(){backdrop.classList.add('hidden');$('#modalContent').innerHTML='';}$('#modalClose').addEventListener('click',closeModal);backdrop.addEventListener('click',e=>{if(e.target===backdrop)closeModal();});
@@ -262,6 +284,103 @@
       $('#licenseInput').focus();
     });
   }
+  // --- Сканер билетов: камера + распознавание текста (OCR) ---------------
+  let scanStream=null,tesseractWorkerPromise=null;
+  function loadTesseractScript(){
+    if(window.Tesseract)return Promise.resolve();
+    return new Promise((resolve,reject)=>{
+      const s=document.createElement('script');
+      s.src='https://unpkg.com/tesseract.js@5.1.1/dist/tesseract.min.js';
+      s.onload=()=>resolve();s.onerror=()=>reject(new Error('tesseract-load-failed'));
+      document.head.appendChild(s);
+    });
+  }
+  function getTesseractWorker(){
+    if(!tesseractWorkerPromise){
+      tesseractWorkerPromise=loadTesseractScript().then(async()=>{
+        const worker=await Tesseract.createWorker('eng');
+        await worker.setParameters({tessedit_char_whitelist:'0123456789'});
+        return worker;
+      }).catch(err=>{tesseractWorkerPromise=null;throw err;});
+    }
+    return tesseractWorkerPromise;
+  }
+  // Разбивает распознанный текст на 4-значные числа и находит номер чата (7000/7001)
+  // плюс отдельный от него номер борта — так же, как читал бы его человек со стикера.
+  function parseScanText(text){
+    const runs=[...String(text||'').matchAll(/\d{3,}/g)].map(m=>m[0]);
+    const groups=[];
+    for(const run of runs){
+      if(run.length===4){groups.push(run);continue;}
+      for(let i=0;i+4<=run.length;i+=4)groups.push(run.slice(i,i+4));
+    }
+    const targetIdx=groups.findIndex(n=>n==='7000'||n==='7001');
+    if(targetIdx===-1)return null;
+    const chatId=groups[targetIdx];
+    const rest=groups.filter((n,i)=>i!==targetIdx);
+    if(!rest.length)return null;
+    return {chatId,boardNumber:rest[rest.length-1]};
+  }
+  function openScanner(){
+    if(!access.activated){activationModal();return;}
+    if(!navigator.mediaDevices?.getUserMedia){showToast('Камера недоступна в этом браузере.');return;}
+    const overlay=$('#scanOverlay');
+    overlay.classList.remove('hidden');
+    $('#scanManual').classList.add('hidden');
+    $('#scanStatus').textContent='Наведите камеру на стикер с кодом';
+    $('#scanShutter').disabled=false;
+    navigator.mediaDevices.getUserMedia({video:{facingMode:{ideal:'environment'}},audio:false}).then(stream=>{
+      scanStream=stream;$('#scanVideo').srcObject=stream;
+    }).catch(()=>{
+      $('#scanStatus').textContent='Нет доступа к камере. Введите данные вручную.';
+      $('#scanManual').classList.remove('hidden');
+      $('#scanShutter').disabled=true;
+    });
+  }
+  function closeScanner(){
+    $('#scanOverlay').classList.add('hidden');
+    if(scanStream){scanStream.getTracks().forEach(t=>t.stop());scanStream=null;}
+    $('#scanVideo').srcObject=null;
+  }
+  function sendScannedCode(chatId,boardNumber){
+    if(!chats[chatId])return;
+    closeScanner();
+    setChat(chatId);
+    handleSend(boardNumber);
+  }
+  $('#scanBtn').addEventListener('click',openScanner);
+  $('#scanClose').addEventListener('click',closeScanner);
+  $('#scanShutter').addEventListener('click',async()=>{
+    const video=$('#scanVideo'),btn=$('#scanShutter');
+    if(!video.videoWidth){showToast('Камера ещё не готова.');return;}
+    btn.disabled=true;$('#scanStatus').textContent='Распознаём…';
+    try{
+      const canvas=document.createElement('canvas');
+      canvas.width=video.videoWidth;canvas.height=video.videoHeight;
+      canvas.getContext('2d').drawImage(video,0,0);
+      const worker=await getTesseractWorker();
+      const {data}=await worker.recognize(canvas);
+      const parsed=parseScanText(data.text);
+      if(!parsed){
+        $('#scanStatus').textContent='Не удалось распознать код на фото.';
+        $('#scanManual').classList.remove('hidden');
+        btn.disabled=false;return;
+      }
+      sendScannedCode(parsed.chatId,parsed.boardNumber);
+      showToast('Распознано: '+parsed.chatId+' · '+parsed.boardNumber);
+    }catch{
+      $('#scanStatus').textContent='Не удалось распознать — нет сети или ошибка камеры.';
+      $('#scanManual').classList.remove('hidden');
+      btn.disabled=false;
+    }
+  });
+  $('#scanManualSubmit').addEventListener('click',()=>{
+    const chatId=$('#scanManualChat').value;
+    const code=$('#scanManualCode').value.trim();
+    if(!/^\d{4}$/.test(code)){showToast('Введите 4 цифры номера борта.');return;}
+    sendScannedCode(chatId,code);
+  });
+
   function openAdmin(){if(!state.adminUnlocked){adminLogin();return;}adminPanel();}
   function adminLogin(){openModal(`<h2>Панель администратора</h2><p class="modal-lead">Войдите, используя пароль главного администратора.</p><label class="field-label" for="adminPin">PIN администратора</label><input class="field" id="adminPin" type="password" inputmode="numeric" placeholder="Введите PIN"><div id="adminError"></div><button class="primary-btn full" id="adminLoginBtn">Войти</button><button class="secondary-btn full" id="modalOk">Отмена</button>`,()=>{$('#adminLoginBtn').addEventListener('click',()=>{if($('#adminPin').value!==state.adminPin){$('#adminError').className='form-error';$('#adminError').textContent='Неверный PIN.';return;}state.adminUnlocked=true;save();closeModal();adminPanel();});$('#adminPin')?.addEventListener('keydown',e=>{if(e.key==='Enter')$('#adminLoginBtn').click();});});}
   function adminPanel(){adminTab='keys';renderAdmin();}
@@ -273,8 +392,6 @@
   function cryptoRandom(){const arr=new Uint8Array(6);if(window.crypto&&crypto.getRandomValues)crypto.getRandomValues(arr);else for(let i=0;i<arr.length;i++)arr[i]=Math.floor(Math.random()*256);return [...arr].map(x=>x.toString(16).padStart(2,'0')).join('');}
   $('#profileName').textContent=state.profileName||'Пользователь';$('#licenseStatus').textContent=state.activated?'Доступ активен':'Требуется активация';
   $('#gateAction').addEventListener('click',activationModal);
-  $('#gateAdminAction').addEventListener('click',openAdmin);
-  // Admin access is available from the small key icon in the upper-left toolbar.
   setChat(state.activeChat||'7000');
   if(mobileLayout.matches)setMobileView(false);
   $$('.chat-item .avatar').forEach(a=>{a.textContent='';a.setAttribute('aria-hidden','true');});
